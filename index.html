@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Морфеми</title>
+
+        <link rel="stylesheet" href="css/pointer.css">
+        <link rel="stylesheet" href="css/sop.css">
+    </head>
+
+    <body>
+
+        <script src="js/pointer.js"></script>
+        <noscript>За съжаление, браузърът Ви не поддържа JavaScript!</noscript>
+
+        <script>
+            init_pointer({
+                pointerColor: "black", // Css color
+                ringSize: 25, // Pixels
+                ringClickSize: 10 // Pixels when clicking 
+            })
+        </script>
+
+
+
+        <h1>Морфеми</h1>
+        <h3 style="margin-bottom: 30px">Проект по Информационни технологии при обучението<br>на деца със СОП<br><a href="https://learn.fmi.uni-sofia.bg/user/profile.php?id=7032">Мартин Бялов</a> | 50438 | 2022</h3>
+
+        <embed src="./itzasop.pdf" width="800px" height="1100px" />
+
+        <p></p>
+
+
+        <div class="section0">
+
+            <h2>I. Части на думата</h2>
+
+            <p>Части на думата, които определят нейното лексикално значение:
+                <br><span style="color: firebrick">⌦ </span><b>Корен</b> - носи основното значение на думата:
+            </p>
+            <img src="./images/prikazkataKoren.png" alt="Prikazka Koren">
+            <p><span style="color: darkorange">⌦ </span><b>Представка</b> - намира се пред корена:</p>
+            <img src="./images/prikazkataPredstavka.png" alt="Prikazka Predstavka">
+            <p><span style="color: darkorange">⌦ </span><b>Наставка</b> - намира се след корена:</p>
+            <img src="./images/prikazkataNastavka.png" alt="Prikazka Nastavka">
+            <p><span style="color: darkorange">⌦ </span><b>Окончанието</b> стои в края на думата.
+                С него образуваме форми за <b>число, род, лице и време </b> на думите.</p>
+            <img src="./images/prikazkataOkonchanie.png" alt="Prikazka Okonchanie">
+            <p><span style="color: darkorange">⌦ </span>Съществителните, прилагателните и числителните редни имена имат нечленувани и членувани форми.
+                Членуваните форми на имената съдържат <b> определителен член:</b></p>
+            <img src="./images/prikazkataOpredelitelenChlen.png" alt="Prikazka Opredelitelen Chlen">
+            <p><span style="color: darkorange">⌦ </span><b>Сродни думи</b> - думи с един и същи корен.</p>
+            <hr style="margin-top: 40px">
+            <p><span style="color: firebrick">⌦ </span>Частите на думата, които носят нейното <b>лексикално значение</b> и <b>граматичните </b>ѝ <b>признаци</b>, се наричат <span style="color: firebrick">морфеми</span>.</p>
+
+            <img src="./images/vidoveMorfemi.png" alt="Prikazka Vidove Morfemi" style="width: 660px; height: 300px">
+            <figcaption id="figcaptionTwo" style="margin-top: 10px">
+
+                ~ <cite><a href="https://www.mon.bg/bg/2000">МОН Учебна програма по Български език за 5 клас</a></cite>
+            </figcaption>
+        </div>
+
+        <div class="section1">
+            <h2>Задача 1</h2>
+            <div>
+                <p>Като отговорите с<img src="./images/butonDA.png" alt="Buton Da" style="width: 80px; height: 50px; vertical-align: middle">или <img src="./images/butonNE.png" alt="Buton Ne" style="width: 70px; height: 50px; vertical-align: middle"> се опитайте да решите следната задача - 
+                    <i><b>"Правилно ли са изписани думите?"</b></i>.<br>
+                    След всеки свой отговор изберете бутон<img src="./images/butonSledvashtaDuma.png" alt="Buton Da" style="width: 130px; height: 46px; vertical-align: middle">за преминаване към следващата дума. <br><br>След приключване на задачата с натискането на <br>бутон <img src="./images/butonRezultat.png" alt="Buton Da" style="width: 120px; height: 40px; vertical-align: middle">може да видите броят на думите, които сте успели да познаете. Общ брой думи: <b>10</b>.</p></div>
+            <hr>
+            <h4 style="margin-top: 60px">Правилно ли е изписана думата?</h4>
+
+            <canvas id="wordCanvas"></canvas>
+
+            <h4>Правилно изписване:</h4>
+            <div>
+                <canvas id="rightWordCanvas"></canvas>
+                <p id="countScore"></p>
+            </div>
+            <button id="button3">Следваща дума</button>
+
+            <div>
+                <button id="button1">ДА</button>
+                <button id="button2">НЕ</button>
+            </div>
+
+            <script> 
+                var counter = 0;
+                var drawCounter = 1;
+                var clicks = 0;
+                var score = 0;
+                var ctx2count = 0;
+
+                var but1 = false;
+                var but2 = false;
+                var but3 = false;
+
+                var imgs = ['./images/word1.png', './images/word2.png', './images/word3.png', './images/word4.png','./images/word5.png','./images/word6.png', './images/word7.png', './images/word8.png', './images/word9.png', './images/word10.png'];
+                var check = [1, 0, 0, 0, 1, 0, 1, 0, 1, 0];
+                var please = ['./images/pleaseword.png'];
+
+                var rightImgs = ['./images/rightword1.png', './images/rightword2.png', './images/rightword3.png', './images/rightword4.png', './images/rightword5.png', './images/rightword6.png', './images/rightword7.png', './images/rightword8.png', './images/rightword9.png', './images/rightword10.png'];
+
+                var c = document.getElementById('wordCanvas');
+                var ctx = c.getContext('2d');
+
+                var d = document.getElementById('rightWordCanvas');
+                var ctx2 = d.getContext('2d');
+
+                //Начална картинка
+                wordImage = new Image();
+                wordImage.src = imgs[counter];
+
+                wordImage.onload = function(){
+                    ctx.drawImage(wordImage, 0, 0, wordImage.width, wordImage.height,  
+                                  0, 0, c.width, c.height);}
+
+
+                // Заключваме бутон "Следваща дума" в началото
+                document.getElementById('button3').disabled = true;           
+
+                function drawYesWord(){
+
+                    if(check[counter] == 1 &&  document.getElementById('button3').disabled == true){
+
+                        console.log('counter: ' + counter);
+
+                        rightWordImage = new Image();
+                        rightWordImage.src = rightImgs[counter];
+
+                        rightWordImage.onload = function(){
+                            ctx2.drawImage(rightWordImage, 0, 0, rightWordImage.width, rightWordImage.height,  
+                                           0, 0, d.width, d.height);}
+
+                        ctx2count += 1;
+
+                        score += 1;
+                        console.log("Резултат: " + score);
+                        counter += 1;
+
+                        document.getElementById('button1').disabled = true; // изключи бутон "Да"
+                        document.getElementById('button2').disabled = true; // изключи бутон "Не"
+                        document.getElementById('button3').disabled = false; // включи бутон "Следваща дума"
+
+                        but1 = true;
+                        but2 = true;
+                        but3 = false;
+
+                        console.log("button 1 state: " + but1);
+                        console.log("button 2 state: " + but2);
+                        console.log("button 3 state: " + but3 + "\n");
+
+                        return true;
+
+                    } else{
+
+                        document.getElementById('button1').textContent = "X";
+                        document.getElementById('button1').style.color = "black";
+
+
+
+                        tryAgainImage = new Image();
+                        tryAgainImage.src = './images/pleaseword.png';
+                        tryAgainImage.onload = function(){
+                            ctx2.drawImage(tryAgainImage, 0, 0, tryAgainImage.width, tryAgainImage.height,  
+                                           0, 0, c.width, c.height);}
+
+                        document.getElementById('button1').disabled = true; 
+
+                        but1 = true;
+                        console.log("button 1 state: " + but1 + "\n");
+
+
+                        score -= 1;
+
+                        return false;
+                    }
+                }
+
+                function drawNoWord(){ 
+
+                    if(ctx2count == (rightImgs.length - 1)){
+
+
+                        document.getElementById('button1').textContent = "☺";
+                        document.getElementById('button1').style.color = "white";
+                        document.getElementById('button2').textContent = "☺";
+                        document.getElementById('button2').style.color = "white";
+                        document.getElementById('button3').textContent = "Резултат";
+
+                        document.getElementById('button3').addEventListener("click", showResult);
+
+                    }
+
+                    if(check[counter] == 0 && document.getElementById('button3').disabled == true){
+
+                        console.log('counter: ' + counter);
+
+                        rightWrongImage = new Image();
+                        rightWrongImage.src = rightImgs[counter];
+
+                        rightWrongImage.onload = function(){
+                            ctx2.drawImage(rightWrongImage, 0, 0, rightWrongImage.width, rightWrongImage.height,  
+                                           0, 0, c.width, c.height);}
+
+                        ctx2count += 1;
+
+                        score += 1;
+                        console.log("Резултат: " + score);
+                        counter += 1;
+
+                        document.getElementById('button1').disabled = true; // изключи бутон "Да"
+                        document.getElementById('button2').disabled = true; // изключи бутон "Не"
+                        document.getElementById('button3').disabled = false; // включи бутон "Следваща дума"
+
+                        but1 = true;
+                        but2 = true;
+                        but3 = false;
+
+                        console.log("button 1 state: " + but1);
+                        console.log("button 2 state: " + but2);
+                        console.log("button 3 state: " + but3 + "\n");
+
+
+                        return true;
+
+
+                    } else{
+
+                        document.getElementById('button2').textContent = "X";
+                        document.getElementById('button2').style.color = "black";
+
+                        tryAgainImage = new Image();
+                        tryAgainImage.src = './images/pleaseword.png';
+                        tryAgainImage.onload = function(){
+                            ctx2.drawImage(tryAgainImage, 0, 0, tryAgainImage.width, tryAgainImage.height,  
+                                           0, 0, c.width, c.height);}
+
+                        document.getElementById('button2').disabled = true; 
+
+
+                        console.log("button 2 state: " + but2 + "\n");
+
+                        score -= 1;
+
+                        return false;
+                    }}
+
+                function drawNextWord(){
+
+                    document.getElementById('button1').textContent = "ДА";
+                    document.getElementById('button1').style.color = "white";
+                    document.getElementById('button2').textContent = "НЕ";
+                    document.getElementById('button2').style.color = "white";
+
+
+                    document.getElementById('button1').disabled = false;
+                    document.getElementById('button2').disabled = false;
+
+                    but1 = false;
+                    but2 = false;
+
+                    console.log("button 1 state: " + but1);
+                    console.log("button 2 state: " + but2 + "\n");
+
+
+                    nextImage = new Image();
+                    nextImage.src = imgs[drawCounter];
+
+                    nextImage.onload = function(){
+                        ctx.drawImage(nextImage, 0, 0, nextImage.width, nextImage.height,  
+                                      0, 0, c.width, c.height);}
+
+                    drawCounter += 1;
+
+                    ctx2.clearRect(0, 0, d.width, d.height);
+
+
+                    document.getElementById('button3').disabled = true;
+
+                    but3 = true;
+                    console.log("button 3 state: " + but3 + "\n");
+
+                }
+
+                function countScore(){
+
+                    document.getElementById("countScore").innerHTML = "Познати думи: " + score + " от " + "10";
+
+                    console.log("Array lenght is: " + (imgs.length - 1));
+
+                }
+
+                function showResult(){
+
+                    document.getElementById('button1').disabled = true;
+                    document.getElementById('button2').disabled = true;
+                    document.getElementById('button3').disabled = false;
+
+                    awardImage = new Image();
+                    awardImage.src = './images/award.jpg';
+
+                    awardImage.onload = function(){
+                        ctx2.drawImage(awardImage, 0, 0, awardImage.width, awardImage.height,  
+                                       0, 0, c.width, c.height);
+
+                        ctx2.font = "30px Verdana";
+                        ctx2.textAlign = "center";
+
+                        ctx2.fillText("Резултат: " + score + "/10", d.width/2, d.height/2); 
+                    }
+
+
+                    document.getElementById('button1').textContent = "☺";
+                    document.getElementById('button1').style.color = "white";
+                    document.getElementById('button2').textContent = "☺";
+                    document.getElementById('button2').style.color = "white";
+                    document.getElementById('button3').textContent = "Нов опит";
+                    document.getElementById('button3').addEventListener("click", newTry);
+
+                }
+
+                function newTry(){
+
+                    window.location.reload();
+
+                }
+
+                document.getElementById('button1').addEventListener("click", drawYesWord); 
+                document.getElementById('button2').addEventListener("click", drawNoWord); 
+                document.getElementById('button3').addEventListener("click", drawNextWord);
+
+            </script>
+
+            <hr>
+            <p style="margin-top: 20px">🔒 В контекста на заданието не са необходими предварителни настройки от страна на ученик или учител.<br><br>
+                🔏 В по-тежките случаи на проблеми с фините моторни умения и допълнителни усложнения породени от тях, може да възникне необходимост от персонализиране на някои от аспектите/настройките на ресурса (фонови цветове на изображенията, шрифт на текста, големина на бутоните и др.). Структурата на образователният ресурс и технологията използвана за създаването му позволяват подобно персонализиране.
+
+            </p>
+            <figcaption id="figcaptionTwo" style="margin-top: 30px">
+                ~ <cite><a href="https://github.com/MartinByalov">https://github.com/MartinByalov</a><br></cite>
+            </figcaption>
+            <figcaption style="font-size: 12px; text-align: left; color: darkslategray; margin-left: 20px; margin-bottom: 12px">~ контекст - <cite>движение с мишката, натискане върху бутон с мишката.</cite></figcaption>
+
+        </div>
+
+        <div class="section1">
+
+            <h2>Задача 2</h2>
+
+            <p style="width: 500px">Прочете краткият откъс от <i>"Пипи Дългото чорапче - Астрид Линдгрен"</i> и с помощта на клавиатурата <img src="images/keyboard.png" style="width: 80px; height: 30px; vertical-align: middle"> го препишете в текстовото поле <img src="images/textField.png" style="width: 80px; height: 30px; vertical-align: middle">.</p>
+            <hr>
+            <p style="margin-top: 40px">🔏 <b>Предварителни настройки:</b>
+                <br><span style="color: darkorange; margin-left: 26px">⌦</span> анимираната клавиатура работи в клавиатурна подредба по БДС (<b>5237:1978</b>);
+
+                <br><span style="color: darkorange; margin-left: 26px">⌦</span> в зависимост от Операционната система в меню<i>"Езикови Настройки"</i> се избира <b>Клавиатура: </b>Български.
+            </p>
+            <img src="images/languageBDS.png" style="width: 280px; height: 240px; vertical-align: middle">
+            <p><br><span style="color: darkorange; margin-left: 26px">⌦</span> избираме с мишката текстовото поле за писане:</p>
+            <img src="images/mousePointer.png" style="width: 200px; height: 120px; vertical-align: middle">
+
+            <hr style="margin-top: 20px">
+            <p style="width: 550px; margin-top: 45px"><b>🔎 Своевременна проверка:</b>
+                <br> <span style="color: darkorange; margin-left: 26px">⌦</span> при правопис текстът се подчертава: <img src="images/textCheck.png" style="width: 160px; height: 28px; vertical-align: middle">;
+                <br> <span style="color: darkorange; margin-left: 26px">⌦</span> анимираната клавиатура проследява и анимира "следващият пореден символ"<b>*</b> <img src="images/animatedLetter.png" style="width: 30px; height: 30px; vertical-align: middle">; необходим за въвеждане (в частност: при наличие на голяма буква се анимира и <br>бутон <img src="images/animatedShift.png" style="width: 70px; height: 30px; vertical-align: middle"> - необходим за изписването на големи букви);
+                <br><span style="color: darkorange; margin-left: 26px">⌦</span> анимираната клавиатура изисква "следващият пореден символ". 
+            </p>
+            <p style="font-size: 12px; margin-bottom: 20px"><b>*</b> следващ пореден символ - число, буква, специален символ или команда от клавиатурата.</p>
+
+            <hr style="margin-top: 20px">
+            <p style="width: 550px; margin-top: 45px"><b>⭐ Резултат:</b><br></p>
+            <p style="width: 500px"><span style="margin-left: 26px"></span>За илюстриране на изпълнение по заданието, активният текст в <b>Задача 2</b> е сведен до първото изречение <i>"Една сутрин Томи и Аника намериха в пощенската кутия писмо."</i>. Резултатът след изпълнението на задачата се формира на база правилно/грешно въведени символи. В първото изречение общият брой на необходимите символи за изписването му е: <b>59</b>. Крайният резултат се взима с цел поставяне на качествена оценка на базата на количествени данни.</p>
+
+            <p style="width: 500px; margin-top: 40px"><b>Пример:</b><br>След въвеждане на <b>3</b> погрешни символа и завършване на задачата:</p>
+            <img src="images/razlikaPismo.png" style="width: 500px; height: 30px">
+            <p>Получаваме резултат, който се изписва автоматично в текстовото поле:</p>
+            <img src="images/razlika.png" style="width: 400px; height: 120px; margin-bottom: 20px">
+
+        </div>
+
+        <!-- Клавиатура -->
+        <div class="section2">
+
+            <p id="storyParagraph"><span style="left: 910px; top: -70px; position: absolute; font-size: 80px; color: dimgray">,,</span>Една <mark style="background-color: #87CEFA">сутрин</mark> Томи и Аника намериха в пощенската кутия <mark style="background-color: #87CEFA">писмо</mark>. Когато го отвориха, намериха вътре <mark style="background-color: #87CEFA">покана</mark> за рождения ден на Пипи. Томи и Аника заподскачаха и се разтанцуваха от радост. Те разбраха много добре какво пише на <mark style="background-color: #87CEFA">картичката</mark>, въпреки че правописът беше <mark style="background-color: #87CEFA">по-особен</mark>. Разбира се, децата купиха подарък на Пипи. Пипи им благодари и нетърпеливо развърза пакета. В него имаше музикална кутийка. Като я <mark style="background-color: #87CEFA">видя</mark>, Пипи направо пощуря от радост.</p>
+            <figcaption>
+                ~ откъс от: <cite>Пипи Дългото чорапче - Астрид Линдгрен</cite>
+            </figcaption>
+            <textarea id="storyTextArea" placeholder="Текстово поле" style="margin-top: 10px"></textarea>
+
+            <script>window.onload = function() {
+                    document.getElementById('storyTextArea').value = '';
+                }</script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+            <script>
+                var storyCounter = 0;
+                var originalText = $("#storyParagraph").text();
+
+                $("textarea").on("keyup", function() {
+                    var enteredText = $("textarea").val();
+                    var length = enteredText.length;
+                    if (originalText.search(enteredText) == 0) {
+                        $("#storyParagraph").html("<span class='highlight'>" + originalText.slice(0, length) + "</span>" + originalText.slice(length, originalText.length));                  
+                    }
+                });
+
+            </script>
+
+            <div class="keyboard">
+
+                <ul class="row row-0">
+                    <li class="pinky" id="ESC"><span>ESC</span></li>
+                    <li class="pinky" id="1"><span>1</span></li>
+                    <li class="ring" id="2"><span>2</span></li>
+                    <li class="middle" id="3"><span>3</span></li>
+                    <li class="pointer1st" id="4"><span>4</span></li>
+                    <li class="pointer2nd" id="5"><span>5</span></li>
+                    <li class="pointer2nd" id="6"><span>6</span></li>
+                    <li class="pointer1st" id="7"><span>7</span></li>
+                    <li class="middle" id="8"><span>8</span></li>
+                    <li class="ring" id="9"><span>9</span></li>
+                    <li class="pinky" id="0"><span>0</span></li>
+                    <li class="pinky" ><span>-</span></li>
+                    <li class="pinky" id="Equal"><span>.</span></li>
+                    <li class="pinky" id="back"><span>BACK</span></li>
+                </ul>
+                <ul class="row row-1">
+                    <li class="pinky" id="tab"><span>TAB</span></li> <!-- 14 -->
+                    <li class="pinky" id="KeyQ"><span>,</span></li>
+                    <li class="ring" id="KeyW"><span>У</span></li>
+                    <li class="middle" id="KeyE"><span>Е</span></li>
+                    <li class="pointer1st" id="KeyR"><span>И</span></li>
+                    <li class="pointer2nd" id="KeyT"><span>Ш</span></li>
+                    <li class="pointer2nd" id="KeyY"><span>Щ</span></li>
+                    <li class="pointer1st" id="KeyU"><span>К</span></li>
+                    <li class="middle" id="KeyI"><span>С</span></li>
+                    <li class="ring" id="KeyO"><span>Д</span></li>
+                    <li class="pinky" id="KeyP"><span>З</span></li>
+                    <li class="pinky" id="BracketLeft"><span>Ц</span></li>
+                    <li class="pinky" id="]"><span>§</span></li>
+                    <li class="pinky" id="\"><span>\</span></li> <!-- 27 -->
+                </ul>
+                <ul class="row row-2">
+                    <li class="pinky" id="caps"><span>CAPS</span></li> <!-- 28 -->
+                    <li class="pinky" id="KeyA"><span>Ь</span></li>
+                    <li class="ring" id="KeyS"><span>Я</span></li>
+                    <li class="middle" id="KeyD"><span>А</span></li>
+                    <li class="pointer1st" id="KeyF"><span>О</span></li>
+                    <li class="pointer2nd" id="KeyG"><span>Ж</span></li>
+                    <li class="pointer2nd" id="KeyH"><span>Г</span></li>
+                    <li class="pointer1st" id="KeyJ"><span>Т</span></li>
+                    <li class="middle" id="KeyK"><span>Н</span></li>
+                    <li class="ring" id="KeyL"><span>В</span></li>
+                    <li class="pinky" id="Semicolon"><span>М</span></li>
+                    <li class="pinky" id="Quote"><span>Ч</span></li>  <!-- 39 -->
+                    <li class="pinky" id="enter"><span>ENT</span></li>
+                </ul>
+                <ul class="row row-3">
+                    <li class="pinky" id="ShiftLeft"><span>SHIFT</span></li>
+                    <li class="pinky" id="KeyZ"><span>Ю</span></li> <!-- 42 -->
+                    <li class="ring" id="KeyX"><span>Й</span></li>
+                    <li class="middle" id="KeyC"><span>Ъ</span></li>
+                    <li class="pointer1st" id="KeyV"><span>Э</span></li>
+                    <li class="pointer2nd" id="KeyB"><span>Ф</span></li>
+                    <li class="pointer2nd" id="KeyN"><span>Х</span></li>
+                    <li class="pointer1st" id="KeyM"><span>П</span></li>
+                    <li class="middle" id="Comma"><span>Р</span></li>
+                    <li class="ring" id="Period"><span>Л</span></li>
+                    <li class="pinky" id="Slash"><span>Б</span></li> <!-- 51 -->
+                    <li class="pinky" id="ShiftRight"><span>SHIFT</span></li>
+                </ul>
+                <ul class="row row-4">
+                    <li class="pinky" id="Space"><span>SPACE</span></li>
+                </ul>
+
+            </div>
+
+            <script>
+
+                var story = ['KeyE', 'KeyO', 'KeyK', 'KeyD',
+                             'Space', 'KeyI', 'KeyW', 'KeyJ', 'Comma', 'KeyR', 'KeyK', 
+                             'Space', 'KeyJ', 'KeyF', 'Semicolon', 'KeyR', 
+                             'Space', 'KeyR', 
+                             'Space', 'KeyD', 'KeyK', 'KeyR', 'KeyU', 'KeyD',
+                             'Space', 'KeyK', 'KeyD', 'Semicolon', 'KeyE', 'Comma', 'KeyR', 'KeyN', 'KeyD',
+                             'Space', 'KeyL',
+                             'Space', 'KeyM', 'KeyF', 'KeyY', 'KeyE', 'KeyK', 'KeyI', 'KeyU', 'KeyD', 'KeyJ', 'KeyD',
+                             'Space', 'KeyU', 'KeyW', 'KeyJ', 'KeyR', 'KeyS',
+                             'Space', 'KeyM', 'KeyR', 'KeyI', 'Semicolon', 'KeyF', 'Equal',
+                             'Space', 'KeyU', 'KeyF', 'KeyH', 'KeyD', 'KeyJ', 'KeyF', 
+                             'Space', 'KeyH', 'KeyF', 
+                             'Space', 'KeyF', 'KeyJ', 'KeyL', 'KeyF', 'Key,', 'KeyR', 'KeyN', 'KeyD', 'KeyQ',
+                             'Space', 'KeyK', 'KeyD', 'Key;', 'KeyE', 'Key,', 'KeyR', 'KeyN', 'KeyD', 
+                             'Space', 'KeyL', 'KeyC', 'KeyJ', 'Comma', 'KeyE', 
+                             'Space', 'KeyM', 'KeyF', 'KeyU', 'KeyD', 'KeyK', 'KeyD', 
+                             'Space', 'KeyP', 'KeyD', 
+                             'Space', 'Comma', 'KeyF', 'KeyG', 'KeyO', 'KeyE', 'KeyK', 'KeyR', 'KeyS', 
+                             'Space', 'KeyO', 'KeyE', 'KeyK', 
+                             'Space', 'KeyK', 'KeyD', 
+                             'Space', 'KeyM', 'KeyR', 'KeyM', 'KeyR', 'Equal'
+                            ];
+
+                var storyCapitalized = ['ShiftLeft', 'KeyE', 'KeyO', 'KeyK', 'KeyD',
+                                        'Space', 'KeyI', 'KeyW', 'KeyJ', 'Comma', 'KeyR', 'KeyK',
+                                        'Space', 'ShiftLeft', 'KeyJ', 'KeyF', 'Semicolon', 'KeyR',
+                                        'Space', 'KeyR',
+                                        'Space', 'ShiftLeft', 'KeyD', 'KeyK', 'KeyR', 'KeyU', 'KeyD',
+                                        'Space', 'KeyK', 'KeyD', 'Semicolon', 'KeyE', 'Comma', 'KeyR', 'KeyN', 'KeyD',
+                                        'Space', 'KeyL',
+                                        'Space', 'KeyM', 'KeyF', 'KeyY', 'KeyE', 'KeyK', 'KeyI', 'KeyU', 'KeyD', 'KeyJ', 'KeyD',
+                                        'Space', 'KeyU', 'KeyW', 'KeyJ', 'KeyR', 'KeyS',
+                                        'Space', 'KeyM', 'KeyR', 'KeyI', 'Semicolon', 'KeyF', 'Equal',
+                                        'Space', 'ShiftLeft', 'KeyU', 'KeyF', 'KeyH', 'KeyD', 'KeyJ', 'KeyF', 
+                                        'Space', 'KeyH', 'KeyF', 
+                                        'Space', 'KeyF', 'KeyJ', 'KeyL', 'KeyF', 'Key,', 'KeyR', 'KeyN', 'KeyD', 'KeyQ',
+                                        'Space', 'KeyK', 'KeyD', 'Key;', 'KeyE', 'Key,', 'KeyR', 'KeyN', 'KeyD', 
+                                        'Space', 'KeyL', 'KeyC', 'KeyJ', 'Comma', 'KeyE', 
+                                        'Space', 'KeyM', 'KeyF', 'KeyU', 'KeyD', 'KeyK', 'KeyD', 
+                                        'Space', 'KeyP', 'KeyD', 
+                                        'Space', 'Comma', 'KeyF', 'KeyG', 'KeyO', 'KeyE', 'KeyK', 'KeyR', 'KeyS', 
+                                        'Space', 'KeyO', 'KeyE', 'KeyK', 
+                                        'Space', 'KeyK', 'KeyD', 
+                                        'Space', 'ShiftLeft', 'KeyM', 'KeyR', 'KeyM', 'KeyR', 'Equal'];
+
+
+                var wrongCharacters = 0;
+                var storyLetter = 0;
+                var storyCapitalizedLetter = 0;
+
+                var keys = ['Space', 'ShiftLeft', 'ShiftRight', 'KeyQ', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL', 'Semicolon', 'Quote', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 'Equal'];
+
+                var currentKey = keys[0];
+
+                var animatedKey = story[0];
+                var animatedKey2 = storyCapitalized[0];
+                var animatedKey2Array = storyCapitalized[0];
+                var animatedKey3 = storyCapitalized[0];
+
+
+                function targetRandomKey() {
+
+                    var key = story[storyLetter];
+
+                    if(storyCapitalized[storyCapitalizedLetter] === 'ShiftLeft'){
+
+                        animatedKey2 = document.getElementById('ShiftLeft');
+
+                        animatedKey2Array = storyCapitalized[storyCapitalizedLetter];
+
+                        animatedKey3 = document.getElementById('ShiftRight');
+
+                        animatedKey2.classList.add("selected");
+                        animatedKey3.classList.add("selected");
+
+                    }
+
+                    animatedKey = document.getElementById(story[storyLetter]);
+
+                    animatedKey.classList.add("selected");
+
+                    currentKey = key;
+
+                }
+
+                // Слушател за клавиатурата
+                document.addEventListener("keypress", event => {
+
+                    var keyDown = event.code;
+                    var keyPressed = event.code;
+
+                    var keyElement = document.getElementById(keyPressed);
+
+                    var highlightedKey = document.querySelector(".selected");
+
+                    keyElement.classList.add("hit")
+                    keyElement.addEventListener('animationend', () => {
+                        keyElement.classList.remove("hit")
+
+                    })
+
+                    if(animatedKey2Array === storyCapitalized[storyCapitalizedLetter] && event.shiftKey && keyPressed === currentKey){
+
+                        storyLetter += 1;
+                        storyCapitalizedLetter += 2;
+
+                        highlightedKey.classList.remove("selected");
+                        animatedKey2.classList.remove("selected");
+                        animatedKey3.classList.remove("selected");
+
+
+                        targetRandomKey();
+
+                    } else{
+
+                        if(animatedKey2Array !== storyCapitalized[storyCapitalizedLetter] && keyPressed === currentKey){
+
+                            storyLetter += 1;
+                            storyCapitalizedLetter += 1;
+
+
+                            highlightedKey.classList.remove("selected");
+
+
+                            targetRandomKey();
+
+                        } else{
+
+                            wrongCharacters += 1;
+
+                        }   
+                    } 
+
+                })
+
+                document.addEventListener("keyup", event =>{
+
+                    var keyPressed = event.code;
+
+                    if(keyPressed === 'ShiftLeft' || keyPressed === 'ShiftRight'){
+
+                        minimizeLetters();
+                    }
+
+                    if(storyLetter === 59){
+
+
+                        document.getElementById("storyTextArea").value = "Общ брой изписани символи: " + (wrongCharacters + 59) + "\nПри необходими: 59\nРазлика: " + wrongCharacters;
+
+                    }
+
+                })
+
+                document.addEventListener("keydown", event => {
+
+                    var keyPressed = event.code;
+
+                    if(keyPressed === 'ShiftLeft' || keyPressed === 'ShiftRight'){
+
+                        maximizeLetters();
+                    }
+                })
+
+
+                function minimizeLetters(){
+
+                    document.getElementsByTagName("li")[15].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[16].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[17].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[18].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[19].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[20].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[21].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[22].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[23].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[24].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[25].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[29].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[30].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[31].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[32].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[33].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[34].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[35].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[36].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[37].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[38].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[39].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[42].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[43].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[44].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[45].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[46].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[47].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[48].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[49].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[50].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[51].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[14].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[28].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[41].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[40].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[52].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[26].style.fontSize = '1em';
+                    document.getElementsByTagName("li")[27].style.fontSize = '1em';
+                }
+
+                function maximizeLetters(){
+
+                    document.getElementsByTagName("li")[15].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[16].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[17].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[18].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[19].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[20].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[21].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[22].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[23].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[24].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[25].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[29].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[30].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[31].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[32].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[33].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[34].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[35].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[36].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[37].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[38].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[39].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[42].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[43].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[44].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[45].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[46].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[47].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[48].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[49].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[50].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[51].style.fontSize = '1.2em';
+                    document.getElementsByTagName("li")[14].style.fontSize = '0.8em';
+                    document.getElementsByTagName("li")[28].style.fontSize = '0.8em';
+                    document.getElementsByTagName("li")[41].style.fontSize = '0.8em';
+                    document.getElementsByTagName("li")[40].style.fontSize = '0.8em';
+                    document.getElementsByTagName("li")[52].style.fontSize = '0.8em';
+                    document.getElementsByTagName("li")[26].style.fontSize = '0.8em';
+                    document.getElementsByTagName("li")[27].style.fontSize = '0.8em';
+                }
+
+                targetRandomKey();
+
+            </script>
+
+            <script>
+                let element = document.querySelector('#keyboardText');
+                const replaceFrom = {'A': 'Ь',
+                                     'a': 'ь',
+                                     'B': 'Ф',
+                                     'b': 'ф',
+                                     'C':'Ъ' ,
+                                     'c': 'Ъ',
+                                     'D':'А', 
+                                     'd': "а",
+                                     'E': "Е",
+                                     'e': "е",
+                                     'F': 'О',
+                                     'f': 'о',
+                                     'G': 'Ж',
+                                     'g': 'ж',
+                                     'H': 'Г',
+                                     'h': 'г',
+                                     'I': 'С',
+                                     'i': 'с',
+                                     'J': 'Т',
+                                     'j': 'т',
+                                     'K': 'Н',
+                                     'k': 'н',
+                                     'L': 'В',
+                                     'l': 'в',
+                                     'M': 'П',
+                                     'm': 'п',
+                                     'N': 'Х',
+                                     'n': 'х',
+                                     'O': 'Д',
+                                     'o': 'д',
+                                     'P': 'З',
+                                     'p': 'з',
+                                     'Q': 'ы',
+                                     'q': ',',
+                                     'R': 'И',
+                                     'r': 'и',
+                                     'S': 'Я',
+                                     's': 'я',
+                                     'T': 'Ш',
+                                     't': 'ш',
+                                     'U': 'К',
+                                     'u': 'к',
+                                     'V': 'Э',
+                                     'v': 'э',
+                                     'W': 'У',
+                                     'w': 'у',
+                                     'X': 'Й',
+                                     'x': 'й',
+                                     'Y': 'Щ',
+                                     'y': 'щ',
+                                     'Z': 'Ю',
+                                     'z': 'ю',
+                                     '<': 'Р',
+                                     ',': 'р',
+                                     '>': 'Л',
+                                     '.': 'л',
+                                     '?': 'Б',
+                                     '/': 'б',
+                                     '{': 'Ц',
+                                     '[': 'ц',
+                                     '=': '.',
+                                     '+': '€'
+                                    }
+
+                element.addEventListener('keypress',function(event) {
+                    event.preventDefault();
+                    let location  = this.selectionStart,
+                        result = '',newArr = [];
+                    let arr =  this.value.split('');
+                    let char = (typeof replaceFrom[event.key] == "undefined")?event.key:replaceFrom[event.key];
+                    arr.forEach((elem,index)=>{
+                        if(index == location ){
+                            newArr[index] = char;
+                            newArr[index+1] = elem;
+                        }
+                        else if(index>location)
+                            newArr[index+1] = elem;
+                        else
+                            newArr[index] = elem;
+                    })
+                    if(arr.length == 0)
+                        newArr[0] = char;
+                    else if(location == arr.length){
+                        newArr[location] = char;  
+                    }
+
+                    newArr.forEach(ch=>{
+                        result += ch;
+                    })
+                    this.value = result;
+                    this.selectionStart = location+1;
+                    this.selectionEnd = location+1;
+                })
+            </script>
+
+            <figcaption>
+
+                ~ licensed under: <cite>[MIT] (LICENSE)</cite><br>
+                <cite><a href="https://github.com/MartinByalov">https://github.com/MartinByalov</a></cite>
+            </figcaption>
+            <figcaption style="font-size: 12px; text-align: left; color: white; margin-left: 20px">~ контекст - <cite>писане на текст с клавиатурата.</cite></figcaption>
+
+        </div>
+
+
+        <div class="section3">
+
+            <h2>II. Морфемен анализ</h2>
+            <h4 style="text-align: left; margin-left: 100px; font-size: 22px"><span style="color: firebrick">1 стъпка:</span></h4>
+            <p>Открийте <b>корена</b>. Това става, като образувате сродни думи чрез добавяне и премахване на представки
+                и наставки. Коренът е онази част от думата, която присъства във всички сродни думи:<br>
+                от<b><i><u>кри</u></i></b>вателите - <b><u>кри</u></b>я, за<b><i><u>кри</u></i></b>вам, с
+                <b><i><u>кри</u></i></b>т, по<b><i><u>кри</u></i></b>вам, с<b><i><u>кри</u></i></b>валище.</p>
+
+            <hr>
+
+            <h4 style="text-align: left; margin-left: 100px; font-size: 22px"><span style="color: firebrick">2 стъпка:</span></h4>
+            <p>Сега вижте има ли нещо пред корена. Така ще откриете <b>представката</b> - тя е тази част от думата, която се намира пред корена: <i><b><u>от</u></b></i><i>кривателите</i>. За проверка се образуват думи със същата представка, но с други корени: <i><b><u>от</u></b></i><i>бор</i>, <i><b><u>от</u></b></i><i>глеждам</i>, <i><b><u>от</u></b></i><i>съствам</i>. В някои думи има две, а в по-редки случаи дори и три представки.</p> 
+
+            <hr>
+
+            <h4 style="text-align: left; margin-left: 100px; font-size: 22px"><span style="color: firebrick">3 стъпка:</span></h4>
+            <p>А сега вижте как завършва думата. Ако тя е съществително, прилагателно или числително име, проверете дали е членувана, и отделете <b>определителния</b> ѝ <b>член</b>: <i>откриватели</i><i><b>те</b></i> - <i>откриватели</i>.</p>
+
+            <hr>
+
+            <h4 style="text-align: left; margin-left: 100px; font-size: 22px"><span style="color: firebrick">4 стъпка:</span></h4>
+            <p>След това идва ред на <b>окончанието</b> - образувайте различни нечленувани форми за род, число, или за лице в зависимост от това
+                каква част на речта е думата. Окончанието е онази част в края на думата, която се променя при образуването на формите ѝ. За да го откриете, образувайте други форми на думата и отделете тази част, която отличава дадената форма от другите: <i>откривател</i> - <i>откривател<u><b>и</b></u></i>; <i>смел</i> - <i>смел<b><u>а</u></b></i>, <i>смел<b><u>o</u></b></i>, <i>смел<b><u>и</u></b></i>; <i>търси<b><u>х</u></b></i>, <i>търси<b><u>хме</u></b></i>, <i>търси<b><u>хте</u></b></i>...</p>
+
+            <hr>
+
+            <h4 style="text-align: left; margin-left: 100px; font-size: 22px"><span style="color: firebrick">5 стъпка:</span></h4>
+            <p>Най-накрая се октрива <b>наставката</b> (една или повече) - това е частта от думата, която се намира между корена и окончанието. За проверка образувайте думи със същата наставка (или наставки), но с други корени. В думата <i>откривателите </i>има две наставки: <b>-ва-</b> и <b>-тел-</b>: <i>каз</i><i><b><u>ва</u></b></i><i>м</i>, <i>тръг</i><i><b><u>ва</u></b></i><i>м</i>, <i>поч</i><i><b><u>ва</u></b></i><i>м</i>; <i>жи</i><i><b><u>тел</u></b></i>, <i>гада</i><i><b><u>тел</u></b></i>, <i>учи</i><i><b><u>тел</u></b></i>.</p>
+
+
+            <figcaption id="figcaptionTwo" style="margin-top: 40px">
+                ~ източник: <cite><a href="https://bg.e-prosveta.bg/free-content/e-readable/99/43/ebook?page=1">Учебник по Математика за 5 клас - Просвета</a></cite>
+            </figcaption>
+
+            <hr style="width: 100%">
+            <h2 style="margin-top: 50px; margin-bottom: 40=px">Задача 3</h2>
+            <hr style="width: 100%">
+            <iframe src="https://learningapps.org/watch?v=pouou2qpt22" style="border:0px;width:100%;height:500px" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+            <figcaption style="font-size: 12px; text-align: left; color: darkslategray; margin-left: 20px; margin-bottom: 12px">~ контекст - <cite>влачене с мишката.</cite></figcaption>
+        </div>
+
+
+        <div class="section1" style="width: 1000px">
+
+            <h2>Задача 4</h2>
+            <p style="width: 805px">&emsp;&emsp;В откъса от <a href="#storyParagraph">Задача 2</a> има <b>6</b> подчертани думи със <mark style="background-color: #87CEFA">син</mark> цвят. В <mark style="background-color: #87CEFA">сините</mark> полета запишете подчертаните думи в реда в който се намират в текста. Срещу тях в графа <i>"Множествено число"</i> запишете формата на думите в множествено число, а в графа <i>"Окончание"</i>, новополученото окончание след преобразуването на думата в множествено число. <br>С бутон <img src="images/butonProverka.png" style="width: 78px; height: 25px; vertical-align: middle"> може да проверите, правилно ли са въведени всички компоненти за дадена дума - самата дума, формата ѝ в множествено число и окончанието ѝ в множествено число.</p>
+            <p style="text-align: left; margin-left: 260px; margin-top: 35px">Дума&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Мн. число&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Окончание&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Проверка</p>
+
+            <p style="text-align: center; margin-left: 120px; margin-top: 5px;"><input type="text" id="sutrin" placeholder="с _ _ _ _ _" style="width: 100px; height: 20px; background-color: #87CEFA; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;➨&nbsp;&nbsp;&nbsp;<input type="text" id="sutrini" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;▎&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="sutrinOkonchanie" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▎ &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="sutrinProverka" value="Проверка" style="width: 100px; height: 30px; text-align: center; background-color: gainsboro; border: 2px solid; border-color: lightslategray"></p>
+
+            <p style="text-align: center; margin-left: 120px; margin-top: 5px"><input type="text" id="pismo" placeholder="п _ с _ _" style="width: 100px; height: 20px; background-color: #87CEFA; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;➨&nbsp;&nbsp;&nbsp;<input type="text" id="pisma" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;▎&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="pismoOkonchanie" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▎ &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="pismoProverka" value="Проверка" style="width: 100px; height: 30px; text-align: center; background-color: gainsboro; border: 2px solid; border-color: lightslategray"></p>
+
+            <p style="text-align: center; margin-left: 120px; margin-top: 5px;"><input type="text" id="pokana" placeholder="п _ _ _ _ а"  style="width: 100px; height: 20px; background-color: #87CEFA; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;➨&nbsp;&nbsp;&nbsp;<input type="text" id="pokani" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;▎&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="pokanaOkonchanie" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▎ &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="pokanaProverka" value="Проверка" style="width: 100px; height: 30px; text-align: center; background-color: gainsboro; border: 2px solid; border-color: lightslategray"></p>
+
+            <p style="text-align: center; margin-left: 120px; margin-top: 5px;"><input type="text" id="kartichkata" placeholder="к _ _ _ _ _ _ _ _ _"  style="width: 100px; height: 20px; background-color: #87CEFA; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;➨&nbsp;&nbsp;&nbsp;<input type="text" id="kartichkite" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;▎&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="kartichkataOkonchanie" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▎ &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="kartichkataProverka" value="Проверка" style="width: 100px; height: 30px; text-align: center; background-color: gainsboro; border: 2px solid; border-color: lightslategray"></p>
+
+            <p style="text-align: center; margin-left: 120px; margin-top: 5px;"><input type="text" id="osoben"  placeholder="пo- _ _ _ _ _ _" style="width: 100px; height: 20px; background-color: #87CEFA; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;➨&nbsp;&nbsp;&nbsp;<input type="text" id="osobeni" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;▎&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="osobenOkonchanie" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▎ &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="osobenProverka" value="Проверка" style="width: 100px; height: 30px; text-align: center; background-color: gainsboro; border: 2px solid; border-color: lightslategray"></p>
+
+            <p style="text-align: center; margin-left: 120px; margin-top: 5px;"><input type="text" id="muzikalna" placeholder="в _ _ я"  style="width: 100px; height: 20px; background-color: #87CEFA; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;➨&nbsp;&nbsp;&nbsp;<input type="text" id="muzikalni" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;▎&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="muzikalnaOkonchanie" style="width: 100px; height: 20px; text-align: center; font-size: 20px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▎ &nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" id="muzikalnaProverka" value="Проверка" style="width: 100px; height: 30px; text-align: center; background-color: gainsboro; border: 2px solid; border-color: lightslategray"></p>
+
+            <hr>
+            <p style="text-align: center; margin-top: 35px; font-size: 25px; font-weight: bold;">⭐Резултат⭐</p>
+            <input type="text" id="zad4rezultat" style="width: 200px; height: 50px; vertical-align: middle; margin-top: -20px; margin-bottom: 30px; font-size: 18px; text-align: center">
+
+            <script>
+
+                var wrongBlueWords = 0;
+
+                document.getElementById('zad4rezultat').style.display = 'none';
+
+                var myWordMinusOne = document.getElementById('sutrin');
+                var myWordOne = document.getElementById('sutrini');
+                var myWordOneOkon = document.getElementById('sutrinOkonchanie');
+                var myButOne = document.getElementById('sutrinProverka');
+
+                var myWordMinusTwo = document.getElementById('pismo');
+                var myWordTwo = document.getElementById('pisma');
+                var myWordTwoOkon = document.getElementById('pismoOkonchanie');
+                var myButTwo = document.getElementById('pismoProverka');
+
+                var myWordMinusThree = document.getElementById('pokana');
+                var myWordThree = document.getElementById('pokani');
+                var myWordThreeOkon = document.getElementById('pokanaOkonchanie');
+                var myButThree = document.getElementById('pokanaProverka');
+
+                var myWordMinusFour = document.getElementById('kartichkata');
+                var myWordFour = document.getElementById('kartichkite');
+                var myWordFourOkon = document.getElementById('kartichkataOkonchanie');
+                var myButFour = document.getElementById('kartichkataProverka');
+
+                var myWordMinusFive = document.getElementById('osoben');
+                var myWordFive = document.getElementById('osobeni');
+                var myWordFiveOkon = document.getElementById('osobenOkonchanie');
+                var myButFive = document.getElementById('osobenProverka');
+
+                var myWordMinusSix = document.getElementById('muzikalna');
+                var myWordSix = document.getElementById('muzikalni');
+                var myWordSixOkon = document.getElementById('muzikalnaOkonchanie');
+                var myButSix = document.getElementById('muzikalnaProverka');
+
+
+                document.getElementById("sutrinProverka").addEventListener("click", event => {
+
+                    if(myWordMinusOne.value === 'сутрин' && myWordOne.value === 'сутрини' && myWordOneOkon.value === 'и'){
+
+                        myButOne.style.backgroundColor = "Green";
+                        myButOne.style.color = "White";
+                        myButOne.style.borderColor = "White";
+
+                        myButOne.value = "Вярно";
+
+                        if(myButOne.value === 'Вярно' && myButTwo.value === 'Вярно' && myButThree.value === 'Вярно' && myButFour.value === 'Вярно' && myButFive.value === 'Вярно' && myButSix.value === 'Вярно'){
+
+                            document.getElementById('zad4rezultat').style.display = 'inline';
+                            document.getElementById('zad4rezultat').value = "Общ брой опити: " + (wrongBlueWords + 6);
+                        }
+
+                    } else{
+
+                        wrongBlueWords += 1;
+
+                        myButOne.style.backgroundColor = "Crimson";
+                        myButOne.style.color = "White";
+                        myButOne.style.borderColor = "White";
+
+                        myButOne.value = "Невярно";
+
+                        setTimeout(setButtonOneColorBack, 1500);
+
+                    }
+                })
+
+                function setButtonOneColorBack(){
+
+                    myButOne.style.backgroundColor = "Gainsboro";
+                    myButOne.style.color = "Black";
+                    myButOne.style.borderColor = "Lightslategray";
+
+                    myButOne.value = "Проверка";
+                }
+
+
+                document.getElementById("pismoProverka").addEventListener("click", event => {
+
+                    if(myWordMinusTwo.value === 'писмо' && myWordTwo.value === 'писма' && myWordTwoOkon.value === 'а'){
+
+                        myButTwo.style.backgroundColor = "Green";
+                        myButTwo.style.color = "White";
+                        myButTwo.style.borderColor = "White";
+
+                        myButTwo.value = "Вярно";
+
+                        if(myButOne.value === 'Вярно' && myButTwo.value === 'Вярно' && myButThree.value === 'Вярно' && myButFour.value === 'Вярно' && myButFive.value === 'Вярно' && myButSix.value === 'Вярно'){
+
+                            document.getElementById('zad4rezultat').style.display = 'inline';
+                            document.getElementById('zad4rezultat').value = "Общ брой опити: " + (wrongBlueWords + 6);
+                        }
+
+                    } else{
+
+                        wrongBlueWords += 1;
+
+                        myButTwo.style.backgroundColor = "Crimson";
+                        myButTwo.style.color = "White";
+                        myButTwo.style.borderColor = "White";
+
+                        myButTwo.value = "Невярно";
+
+                        setTimeout(setButtonTwoColorBack, 1500);
+
+                    }
+                })
+
+                function setButtonTwoColorBack(){
+
+                    myButTwo.style.backgroundColor = "Gainsboro";
+                    myButTwo.style.color = "Black";
+                    myButTwo.style.borderColor = "Lightslategray";
+
+                    myButTwo.value = "Проверка";
+                }
+
+                document.getElementById("pokanaProverka").addEventListener("click", event => {
+
+                    if(myWordMinusThree.value === 'покана' && myWordThree.value === 'покани' && myWordThreeOkon.value === 'и'){
+
+                        myButThree.style.backgroundColor = "Green";
+                        myButThree.style.color = "White";
+                        myButThree.style.borderColor = "White";
+
+                        myButThree.value = "Вярно";
+
+                        if(myButOne.value === 'Вярно' && myButTwo.value === 'Вярно' && myButThree.value === 'Вярно' && myButFour.value === 'Вярно' && myButFive.value === 'Вярно' && myButSix.value === 'Вярно'){
+
+                            document.getElementById('zad4rezultat').style.display = 'inline';
+                            document.getElementById('zad4rezultat').value = "Общ брой опити: " + (wrongBlueWords + 6);
+                        }
+
+                    } else{
+
+                        wrongBlueWords += 1;
+
+                        myButThree.style.backgroundColor = "Crimson";
+                        myButThree.style.color = "White";
+                        myButThree.style.borderColor = "White";
+
+                        myButThree.value = "Невярно";
+
+                        setTimeout(setButtonThreeColorBack, 1500);
+
+                    }
+                })
+
+                function setButtonThreeColorBack(){
+
+                    myButThree.style.backgroundColor = "Gainsboro";
+                    myButThree.style.color = "Black";
+                    myButThree.style.borderColor = "Lightslategray";
+
+                    myButThree.value = "Проверка";
+                }
+
+                document.getElementById("kartichkataProverka").addEventListener("click", event => {
+
+                    if(myWordMinusFour.value === 'картичката' && myWordFour.value === 'картичките' && myWordFourOkon.value === 'и'){
+
+                        myButFour.style.backgroundColor = "Green";
+                        myButFour.style.color = "White";
+                        myButFour.style.borderColor = "White";
+
+                        myButFour.value = "Вярно";
+
+                        if(myButOne.value === 'Вярно' && myButTwo.value === 'Вярно' && myButThree.value === 'Вярно' && myButFour.value === 'Вярно' && myButFive.value === 'Вярно' && myButSix.value === 'Вярно'){
+
+                            document.getElementById('zad4rezultat').style.display = 'inline';
+                            document.getElementById('zad4rezultat').value = "Общ брой опити: " + (wrongBlueWords + 6);
+                        }
+
+                    } else{
+
+                        wrongBlueWords += 1;
+
+                        myButFour.style.backgroundColor = "Crimson";
+                        myButFour.style.color = "White";
+                        myButFour.style.borderColor = "White";
+
+                        myButFour.value = "Невярно";
+
+                        setTimeout(setButtonFourColorBack, 1500);
+
+                    }
+                })
+
+                function setButtonFourColorBack(){
+
+                    myButFour.style.backgroundColor = "Gainsboro";
+                    myButFour.style.color = "Black";
+                    myButFour.style.borderColor = "Lightslategray";
+
+                    myButFour.value = "Проверка";
+                }
+
+                document.getElementById("osobenProverka").addEventListener("click", event => {
+
+                    if(myWordMinusFive.value === 'по-особен' && myWordFive.value === 'по-особени' && myWordFiveOkon.value === 'и'){
+
+                        myButFive.style.backgroundColor = "Green";
+                        myButFive.style.color = "White";
+                        myButFive.style.borderColor = "White";
+
+                        myButFive.value = "Вярно";
+
+                        if(myButOne.value === 'Вярно' && myButTwo.value === 'Вярно' && myButThree.value === 'Вярно' && myButFour.value === 'Вярно' && myButFive.value === 'Вярно' && myButSix.value === 'Вярно'){
+
+                            document.getElementById('zad4rezultat').style.display = 'inline';
+                            document.getElementById('zad4rezultat').value = "Общ брой опити: " + (wrongBlueWords + 6);
+                        }
+
+                    } else{
+
+                        wrongBlueWords += 1;
+
+                        myButFive.style.backgroundColor = "Crimson";
+                        myButFive.style.color = "White";
+                        myButFive.style.borderColor = "White";
+
+                        myButFive.value = "Невярно";
+
+                        setTimeout(setButtonFiveColorBack, 1500);
+
+                    }
+                })
+
+                function setButtonFiveColorBack(){
+
+                    myButFive.style.backgroundColor = "Gainsboro";
+                    myButFive.style.color = "Black";
+                    myButFive.style.borderColor = "Lightslategray";
+
+                    myButFive.value = "Проверка";
+                }
+
+                document.getElementById("muzikalnaProverka").addEventListener("click", event => {
+
+
+                    if(myWordMinusSix.value === 'видя' && myWordSix.value === 'видяха' && myWordSixOkon.value === 'ха'){
+
+                        myButSix.style.backgroundColor = "Green";
+                        myButSix.style.color = "White";
+                        myButSix.style.borderColor = "White";
+
+                        myButSix.value = "Вярно";
+
+                        if(myButOne.value === 'Вярно' && myButTwo.value === 'Вярно' && myButThree.value === 'Вярно' && myButFour.value === 'Вярно' && myButFive.value === 'Вярно' && myButSix.value === 'Вярно'){
+
+                            document.getElementById('zad4rezultat').style.display = 'inline';
+
+                            document.getElementById('zad4rezultat').value = "Общ брой опити: " + (wrongBlueWords + 6);
+
+                        }
+                    } 
+
+                    else {
+
+                        wrongBlueWords += 1;
+
+                        myButSix.style.backgroundColor = "Crimson";
+                        myButSix.style.color = "White";
+                        myButSix.style.borderColor = "White";
+
+                        myButSix.value = "Невярно";
+
+                        setTimeout(setButtonSixColorBack, 1500);
+
+                    }
+                })
+
+                function setButtonSixColorBack(){
+
+                    myButSix.style.backgroundColor = "Gainsboro";
+                    myButSix.style.color = "Black";
+                    myButSix.style.borderColor = "Lightslategray";
+
+                    myButSix.value = "Проверка";
+                }
+
+            </script>
+
+            <figcaption style="font-size: 12px; text-align: left; color: darkslategray; margin-left: 20px; margin-bottom: 12px">~ контекст - <cite>движение с мишката, натискане върху бутон с мишката, писане на текст с клавиатурата.</cite></figcaption>
+        </div>
+
+        <h4 style="color: darkslategray">2022</h4>
+
+
+    </body>
+
+</html>
